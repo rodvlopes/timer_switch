@@ -89,7 +89,7 @@ ifneq ($(INFORMATION_MESSAGE), )
 endif
 	${MAKE}  -f nbproject/Makefile-XC8_PIC12F675.mk dist/${CND_CONF}/${IMAGE_TYPE}/timer_switch.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
 
-MP_PROCESSOR_OPTION=12F629
+MP_PROCESSOR_OPTION=12F675
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: compile
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)

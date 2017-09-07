@@ -53,7 +53,7 @@ void interrupt isr(void)
         __delay_ms(50); //avoid bounce
         if (!BTN) { //is BTN pressed?
             RELAY = 1; //liga o relay
-            global_time_counter = _30M; //inicia ou reinicia a contagem
+            global_time_counter = _40M; //inicia ou reinicia a contagem
             T0IE = 1; //liga o timer
             T0IF = 0;
         }

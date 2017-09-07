@@ -908,7 +908,7 @@
     <conf name="XC8_PIC12F675" type="2">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
-        <targetDevice>PIC12F629</targetDevice>
+        <targetDevice>PIC12F675</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
         <platformTool>PICkit3PlatformTool</platformTool>

@@ -23,7 +23,7 @@
     </conf>
     <conf name="HT_PIC12F609" type="2">
       <platformToolSN></platformToolSN>
-      <languageToolchainDir>/Applications/HI-TECH/picc/9.83/bin</languageToolchainDir>
+      <languageToolchainDir></languageToolchainDir>
       <mdbdebugger version="1">
         <placeholder1>place holder 1</placeholder1>
         <placeholder2>place holder 2</placeholder2>

@@ -12,7 +12,7 @@
 /* User Global Variable Declaration                                           */
 /******************************************************************************/
 
-uint16_t global_time_counter = 0;
+uint24_t global_time_counter = 0;
 
 /******************************************************************************/
 /* Main Program                                                               */
@@ -29,10 +29,12 @@ void main(void)
 
     while(1)
     {
-        GPIO0 = 1;  // LED ON 
+        LED = 1;  // LED ON 
         __delay_ms(1000); // 1 Second Delay
-        GPIO0 = 0;  // LED OFF
+        LED = 0;  // LED OFF
         __delay_ms(1000); // 1 Second Delay
+        
+        GPIO1 = BTN; //GPIO1 used for debug purpose
     }
 
 }
@@ -44,16 +46,16 @@ void interrupt isr(void)
         T0IF = 0; //clear interrupt flag
         
         if (global_time_counter-- == 0) {
-            RELAY = 0;
-            T0IE = 0; //desliga o timer
+            nRELAY = 1;
+            T0IE = 0; //shut timer down
         }
     }
     else if (GPIF)
     {
         __delay_ms(50); //avoid bounce
         if (!BTN) { //is BTN pressed?
-            RELAY = 1; //liga o relay
-            global_time_counter = _40M; //inicia ou reinicia a contagem
+            nRELAY = 0; //liga o relay
+            global_time_counter = TIMER_COUNT;//start/restart timer count
             T0IE = 1; //liga o timer
             T0IF = 0;
         }
@@ -64,17 +66,17 @@ void interrupt isr(void)
 void InitApp(void)
 {
     /* TODO Initialize User Ports/Peripherals/Project here */
-    TRISIO = 0b00001000; //GP3 in
-    GPIO   = 0b00010001; //GP0 ON
-//    WPU2   = 1; //Weak pullup no GP2
-//    nGPPU  = 1; //Enable idividual pullup setup
+    TRISIO = 0b00001100; //GP2, GP3 in
+    GPIO   = 0b00111101; //GP0 ON
+    WPU2   = 1; //Weak pullup no GP2
+    nGPPU  = 0; //Enable idividual pullup setup
 
     /* Setup analog functionality and port direction */
     CMCON = 0b00000111; //comparator off
     #ifdef _PIC12F675
     ANSEL = 0x0; //individual analog config
-    ADCON0= 0b00000101; //AN1 Chanel Selected, left justified
-    ADIE = 0;           //Enable adc interrupt
+    ADCON0= 0b00000000; //AN0 Chanel Selected, left justified
+    ADIE = 0;           //Disable adc interrupt
     #endif
 
     /* Initialize peripherals */
@@ -91,10 +93,11 @@ void InitApp(void)
     PEIE = 1; //peripheral interrupt
     T0IE = 0; //timer 0 interrupt (começa desligado)
     GPIE = 1; //interrupt-on-change
-    IOC = 0b00001000; //GP3 somente pode interromper
+    IOC2 = 1; //GP2 somente pode interromper
 }
 
 void ConfigureOscillator(void)
 {
-    
+    OSCCAL = __osccal_val(); // Use when good cal value is stored at 0x3ff.
+
 }

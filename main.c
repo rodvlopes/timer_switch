@@ -99,5 +99,4 @@ void InitApp(void)
 void ConfigureOscillator(void)
 {
     OSCCAL = __osccal_val(); // Use when good cal value is stored at 0x3ff.
-
 }

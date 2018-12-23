@@ -26,7 +26,7 @@ void InitApp(void);         /* I/O and Peripheral Initialization */
 
 #define BTN     GPIO2
 #define LED     GPIO0
-#define nRELAY  GPIO5
+#define nRELAY  GPIO4
 #define _10S    157
 #define _1M     942
 #define _40M    37700 //fit in 16bits (65536)

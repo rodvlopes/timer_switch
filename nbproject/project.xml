@@ -12,6 +12,48 @@
             <sourceEncoding>ISO-8859-1</sourceEncoding>
             <asminc-extensions/>
             <make-dep-projects/>
+            <sourceRootList/>
+            <confList>
+                <confElem>
+                    <name>XC8_PIC12F609</name>
+                    <type>2</type>
+                </confElem>
+                <confElem>
+                    <name>HT_PIC12F609</name>
+                    <type>2</type>
+                </confElem>
+                <confElem>
+                    <name>XC8_PIC12F675</name>
+                    <type>2</type>
+                </confElem>
+                <confElem>
+                    <name>HT_PIC12F675</name>
+                    <type>2</type>
+                </confElem>
+                <confElem>
+                    <name>XC8_PIC12F1840</name>
+                    <type>2</type>
+                </confElem>
+                <confElem>
+                    <name>HT_PIC12F1840</name>
+                    <type>2</type>
+                </confElem>
+                <confElem>
+                    <name>XC8_PIC12F529T39A</name>
+                    <type>2</type>
+                </confElem>
+                <confElem>
+                    <name>XC8_PIC12LF1840T48A</name>
+                    <type>2</type>
+                </confElem>
+                <confElem>
+                    <name>HT_PIC12LF1840T48A</name>
+                    <type>2</type>
+                </confElem>
+            </confList>
+            <formatting>
+                <project-formatting-style>false</project-formatting-style>
+            </formatting>
         </data>
     </configuration>
 </project>

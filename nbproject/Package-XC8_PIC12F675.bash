@@ -10,9 +10,9 @@ CND_CONF=XC8_PIC12F675
 CND_DISTDIR=dist
 TMPDIR=build/${CND_CONF}/${IMAGE_TYPE}/tmp-packaging
 TMPDIRNAME=tmp-packaging
-OUTPUT_PATH=dist/${CND_CONF}/${IMAGE_TYPE}/timer_switch.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
-OUTPUT_BASENAME=timer_switch.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
-PACKAGE_TOP_DIR=timerswitch.x/
+OUTPUT_PATH=dist/${CND_CONF}/${IMAGE_TYPE}/timer_switch.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
+OUTPUT_BASENAME=timer_switch.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
+PACKAGE_TOP_DIR=timerswitch/
 
 # Functions
 function checkReturnCode
@@ -57,15 +57,15 @@ mkdir -p ${TMPDIR}
 
 # Copy files and create directories and links
 cd "${TOP}"
-makeDirectory ${TMPDIR}/timerswitch.x/bin
+makeDirectory ${TMPDIR}/timerswitch/bin
 copyFileToTmpDir "${OUTPUT_PATH}" "${TMPDIR}/${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}" 0755
 
 
 # Generate tar file
 cd "${TOP}"
-rm -f ${CND_DISTDIR}/${CND_CONF}/package/timerswitch.x.tar
+rm -f ${CND_DISTDIR}/${CND_CONF}/package/timerswitch.tar
 cd ${TMPDIR}
-tar -vcf ../../../../${CND_DISTDIR}/${CND_CONF}/package/timerswitch.x.tar *
+tar -vcf ../../../../${CND_DISTDIR}/${CND_CONF}/package/timerswitch.tar *
 checkReturnCode
 
 # Cleanup

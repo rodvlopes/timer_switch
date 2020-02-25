@@ -24,7 +24,7 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 
 
 # Project Name
-PROJECTNAME=timer_switch.X
+PROJECTNAME=timer_switch
 
 # Active Configuration
 DEFAULTCONF=XC8_PIC12F675

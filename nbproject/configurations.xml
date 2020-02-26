@@ -18,6 +18,7 @@
       <itemPath>Makefile</itemPath>
     </logicalFolder>
     <itemPath>legal_disclaimer.txt</itemPath>
+    <itemPath>Readme.md</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>

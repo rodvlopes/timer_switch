@@ -13,11 +13,15 @@
 uint32_t relay_time_counter = 0;
 uint16_t led_time_counter = 0;
 
+
+
+/*** If using IPE to program, never forget to reload HEX after each build.  ***/
+
+
+
 /******************************************************************************/
 /* Main Program                                                               */
 /******************************************************************************/
-
-/*IMPORTANTE: Se for usar o MPLAB_IPE tem que recarregar o HEX a cada gravação*/
 
 void main(void)
 {
@@ -34,9 +38,9 @@ void main(void)
 
 void interrupt isr(void)
 {
-    /* Nenhuma interrupção pode leva mais de 1s (que é o tempo do WDT) */
+    /* Interruption cant take more then 1s (WDT setup). Be aware of __delays */
     
-    if(T0IE && T0IF) //cada tick do tmr0 ~ 256us
+    if(T0IE && T0IF) //Each tmr0 tick is ~ 256us long
     {
         T0IF = 0; //clear interrupt flag
         CLRWDT(); 
@@ -54,9 +58,9 @@ void interrupt isr(void)
     }
     else if (GPIF)
     {
-        __delay_ms(50); //avoid bounce
+        __delay_ms(50); //Avoid bounce
         if (!BTN) { //is BTN pressed?
-            nRELAY = 0; //liga o relay
+            nRELAY = 0; //Turn relay on
             relay_time_counter = RELAY_TIME;//start/restart timer count
             T0IF = 0;
         }
@@ -83,9 +87,9 @@ void InitApp(void)
     /* Initialize TMR0 */
     T0CS = 0; //Internal instruction cycle clock (CLKOUT)
     T0SE = 0; //Increment on low-to-high transition on GP2/T0CKI pin
-    T0IF = 0; // Inicia nao interrompido
+    T0IF = 0; //Starts running
     PSA  = 1; //Prescaler is assigned to 0:TIMER0 1:WDT
-    PS2  = 1; //Com o prescaler em 110, gera um intervalo de pelo menos 1s.
+    PS2  = 1; //Prescaler set to 110 yields a max of 1s tolerance.
     PS1  = 1;
     PS0  = 0; ///111 -> TMR0:256, WDT:128
             
@@ -94,10 +98,11 @@ void InitApp(void)
     PEIE = 1; //peripheral interrupt
     T0IE = 1; //timer 0 interrupt (começa ligado)
     GPIE = 1; //interrupt-on-change
-    IOC2 = 1; //GP2 somente pode interromper
+    IOC2 = 1; //Only GP2 can interrupt on change
 }
 
 void ConfigureOscillator(void)
 {
     OSCCAL = __osccal_val(); // Use when good cal value is stored at 0x3ff.
+    // must be commented out for simulating. (mplab bug)
 }

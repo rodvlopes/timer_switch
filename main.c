@@ -3,52 +3,51 @@
 /******************************************************************************/
 
 #include <xc.h>         /* XC8 General Include File */
-#include <stdint.h>        /* For uint8_t definition */
-
-#include "system.h"        /* System funct/params, like osc/peripheral config */
+#include <stdint.h>     /* For uint8_t definition */
+#include "system.h"     /* System funct/params, like osc/peripheral config */
 
 /******************************************************************************/
 /* User Global Variable Declaration                                           */
 /******************************************************************************/
 
-uint24_t global_time_counter = 0;
-uint16_t gpio1_time_counter = 0;
+uint32_t relay_time_counter = 0;
+uint16_t led_time_counter = 0;
 
 /******************************************************************************/
 /* Main Program                                                               */
 /******************************************************************************/
 
+/*IMPORTANTE: Se for usar o MPLAB_IPE tem que recarregar o HEX a cada gravação*/
+
 void main(void)
 {
     /* Configure the oscillator for the device */
-   ConfigureOscillator();
+    ConfigureOscillator();
 
     /* Initialize I/O and Peripherals for application */
     InitApp();
     
 
-    while(1)
-    {
-        LED = !LED;  // LED ON 
-        __delay_ms(500); // 1 Second Delay
-//        CLRWDT(); //com prescaler em 110, gera um intervalo de pelo menos 1s.
-    }
+    while(1);
 
 }
 
 void interrupt isr(void)
 {
+    /* Nenhuma interrupção pode leva mais de 1s (que é o tempo do WDT) */
+    
     if(T0IE && T0IF) //cada tick do tmr0 ~ 256us
     {
         T0IF = 0; //clear interrupt flag
+        CLRWDT(); 
         
-        if (gpio1_time_counter-- == 0) {
-            GPIO1 = !GPIO1;
-            gpio1_time_counter = _1S;
+        if (led_time_counter-- == 0) {
+            LED = !LED;
+            led_time_counter = LED_TIME;
         }
         
-        if (global_time_counter > 0) {
-            if (--global_time_counter == 0) {
+        if (relay_time_counter > 0) {
+            if (--relay_time_counter == 0) {
                 nRELAY = 1;
             }
         }
@@ -58,7 +57,7 @@ void interrupt isr(void)
         __delay_ms(50); //avoid bounce
         if (!BTN) { //is BTN pressed?
             nRELAY = 0; //liga o relay
-            global_time_counter = TIMER_COUNT;//start/restart timer count
+            relay_time_counter = RELAY_TIME;//start/restart timer count
             T0IF = 0;
         }
         GPIF = 0; //clear interrupt flag
@@ -86,7 +85,7 @@ void InitApp(void)
     T0SE = 0; //Increment on low-to-high transition on GP2/T0CKI pin
     T0IF = 0; // Inicia nao interrompido
     PSA  = 1; //Prescaler is assigned to 0:TIMER0 1:WDT
-    PS2  = 1;
+    PS2  = 1; //Com o prescaler em 110, gera um intervalo de pelo menos 1s.
     PS1  = 1;
     PS0  = 0; ///111 -> TMR0:256, WDT:128
             

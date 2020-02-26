@@ -18,7 +18,6 @@
       <itemPath>Makefile</itemPath>
     </logicalFolder>
     <itemPath>legal_disclaimer.txt</itemPath>
-    <itemPath>project_information.txt</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>

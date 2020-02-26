@@ -2,7 +2,7 @@
 
 Simple circuit to control a relay and a timer built with MCU PIC 12F675.
 
-_Workflow_: After pressing the swithc button, the relay will be turned on a timer will count 1h30h to shutdown the relay. During this period, if the sitch button gets pressed again, it will reset the counter. A optional Led can be attached to GP0 to check the heart beat.
+_Workflow_: After pressing the switch button, the relay will be turned on and a timer will count 1h30h to shut the relay down. During this period, if the switch button gets pressed again, it will reset the counter. An optional Led can be attached to GP0 to check the heart beat.
 
 ## Schematics do Projeto em:
 
